@@ -18,20 +18,37 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden; /* 🔥 fix geser */
 }
 
 body {
   background: var(--bg);
   color: var(--text);
+  padding-top: 80px; /* 🔥 space untuk navbar */
 }
 
-/* NAV */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* NAV (FIXED STABLE) */
 .nav {
   display: flex;
   justify-content: space-between;
   padding: 20px 60px;
   align-items: center;
-  position: relative;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background: var(--bg);
+  z-index: 1000;
 }
 
 .nav h1 span {
@@ -61,7 +78,6 @@ body {
   height: 3px;
   background: var(--text);
   margin: 4px;
-  transition: 0.3s;
 }
 
 /* HERO */
@@ -167,10 +183,23 @@ body {
   opacity: 0.85;
 }
 
-/* ===================== */
-/* RESPONSIVE */
-/* ===================== */
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 998;
+}
 
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* MOBILE */
 @media(max-width:768px){
 
   .nav {
@@ -182,18 +211,23 @@ body {
   }
 
   .nav-links {
-    position: absolute;
-    top: 70px;
+    position: fixed;
+    top: 0;
     right: 0;
+    height: 100vh;
+    width: 240px;
     background: white;
-    width: 200px;
+
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    gap: 25px;
+
     transform: translateX(100%);
-    transition: 0.3s ease;
+    transition: transform 0.3s ease;
+
+    z-index: 999;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
   }
 
   .nav-links.active {
@@ -214,15 +248,17 @@ body {
 
 <body>
 
+<div class="overlay" id="overlay"></div>
+
 <!-- NAV -->
 <div class="nav">
   <h1>Kana<span>Web</span></h1>
 
   <div class="nav-links" id="navLinks">
-    <a href="#">Home</a>
-    <a href="#">Services</a>
-    <a href="#">Pricing</a>
-    <a href="#">Contact</a>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
   </div>
 
   <div class="burger" id="burger">
@@ -233,13 +269,11 @@ body {
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="home">
   <div class="hero-left">
     <h2>Jasa Pembuatan Website Profesional</h2>
-    <p>
-      Kami membantu bisnis Anda tampil online dengan website modern, cepat, dan menarik.
-    </p>
-    <a href="#" class="btn">Mulai Sekarang</a>
+    <p>Kami membantu bisnis Anda tampil online dengan website modern, cepat, dan menarik.</p>
+    <a href="#contact" class="btn">Mulai Sekarang</a>
   </div>
 
   <div class="hero-right">
@@ -248,19 +282,17 @@ body {
 </section>
 
 <!-- SERVICES -->
-<section class="section">
+<section class="section" id="services">
   <h3>Layanan Kami</h3>
   <div class="services">
     <div class="card">
       <h4>Website Company</h4>
       <p>Website profesional untuk brand Anda.</p>
     </div>
-
     <div class="card">
       <h4>Landing Page</h4>
       <p>Halaman khusus untuk meningkatkan konversi.</p>
     </div>
-
     <div class="card">
       <h4>Custom Web App</h4>
       <p>Solusi khusus sesuai kebutuhan bisnis Anda.</p>
@@ -269,7 +301,7 @@ body {
 </section>
 
 <!-- PRICING -->
-<section class="section">
+<section class="section" id="pricing">
   <h3>Paket Harga</h3>
   <div class="pricing">
     <div class="price-card">
@@ -277,13 +309,11 @@ body {
       <div class="price">Rp1jt</div>
       <p>Landing Page</p>
     </div>
-
     <div class="price-card">
       <h4>Pro</h4>
       <div class="price">Rp3jt</div>
       <p>Company Profile</p>
     </div>
-
     <div class="price-card">
       <h4>Custom</h4>
       <div class="price">Custom</div>
@@ -293,23 +323,36 @@ body {
 </section>
 
 <!-- CTA -->
-<section class="cta-footer">
+<section class="cta-footer" id="contact">
   <h3>Siap punya website keren?</h3>
   <a href="#">Hubungi Kami</a>
-
   <div class="footer-text">
     © 2026 KanaWeb. Website Development Services
   </div>
 </section>
 
-<!-- JS -->
 <script>
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('navLinks');
+const overlay = document.getElementById('overlay');
 
 burger.addEventListener('click', () => {
   navLinks.classList.toggle('active');
+  overlay.classList.toggle('active');
+  document.body.classList.toggle('menu-open');
 });
+
+overlay.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+function closeMenu(){
+  navLinks.classList.remove('active');
+  overlay.classList.remove('active');
+  document.body.classList.remove('menu-open');
+}
 </script>
 
 </body>

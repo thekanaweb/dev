@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KanaWeb</title>
+
+<style>
+:root {
+  --bg: #f5f7f6;
+  --text: #2c2c2c;
+  --green: #7a8f6a;
+  --green-dark: #5f7454;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  align-items: center;
+  position: relative;
+}
+
+.nav h1 span {
+  color: var(--green);
+}
+
+/* MENU */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* BURGER */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background: var(--text);
+  margin: 4px;
+  transition: 0.3s;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 60px;
+  gap: 40px;
+}
+
+.hero-left h2 {
+  font-size: clamp(36px, 5vw, 64px);
+}
+
+.hero-left p {
+  margin: 20px 0;
+  max-width: 500px;
+}
+
+.btn {
+  padding: 14px 28px;
+  background: var(--green);
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.hero-right img {
+  width: 500px;
+}
+
+/* SECTION */
+.section {
+  padding: 80px 60px;
+  text-align: center;
+}
+
+.section h3 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+/* SERVICES */
+.services {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* PRICING */
+.pricing {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.price-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.price {
+  font-size: 32px;
+  margin: 20px 0;
+  color: var(--green);
+}
+
+/* CTA */
+.cta-footer {
+  background: var(--green);
+  color: white;
+  text-align: center;
+  padding: 100px 20px 40px;
+}
+
+.cta-footer a {
+  display: inline-block;
+  margin-top: 20px;
+  background: white;
+  color: var(--green);
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.footer-text {
+  margin-top: 60px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media(max-width:768px){
+
+  .nav {
+    padding: 20px;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: white;
+    width: 200px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: 0.3s ease;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <h1>Kana<span>Web</span></h1>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Pricing</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <div class="burger" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <h2>Jasa Pembuatan Website Profesional</h2>
+    <p>
+      Kami membantu bisnis Anda tampil online dengan website modern, cepat, dan menarik.
+    </p>
+    <a href="#" class="btn">Mulai Sekarang</a>
+  </div>
+
+  <div class="hero-right">
+    <img src="assets/logo.png" alt="logo">
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section">
+  <h3>Layanan Kami</h3>
+  <div class="services">
+    <div class="card">
+      <h4>Website Company</h4>
+      <p>Website profesional untuk brand Anda.</p>
+    </div>
+
+    <div class="card">
+      <h4>Landing Page</h4>
+      <p>Halaman khusus untuk meningkatkan konversi.</p>
+    </div>
+
+    <div class="card">
+      <h4>Custom Web App</h4>
+      <p>Solusi khusus sesuai kebutuhan bisnis Anda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section">
+  <h3>Paket Harga</h3>
+  <div class="pricing">
+    <div class="price-card">
+      <h4>Basic</h4>
+      <div class="price">Rp1jt</div>
+      <p>Landing Page</p>
+    </div>
+
+    <div class="price-card">
+      <h4>Pro</h4>
+      <div class="price">Rp3jt</div>
+      <p>Company Profile</p>
+    </div>
+
+    <div class="price-card">
+      <h4>Custom</h4>
+      <div class="price">Custom</div>
+      <p>Sesuai kebutuhan</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-footer">
+  <h3>Siap punya website keren?</h3>
+  <a href="#">Hubungi Kami</a>
+
+  <div class="footer-text">
+    © 2026 KanaWeb. Website Development Services
+  </div>
+</section>
+
+<!-- JS -->
+<script>
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+
+burger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+</script>
+
+</body>
+</html>

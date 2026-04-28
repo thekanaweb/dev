@@ -38,19 +38,46 @@ body.menu-open {
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 20px 60px;
+  padding: 0 60px;
   align-items: center;
   position: fixed;
   top: 0;
   width: 100%;
-  background: var(--bg);
+  height: 70px;
+
+  /* 🔥 GLASS EFFECT (SAMA KAYAK INDEX) */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(245,247,246,0.8);
+
   z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.05); /* optional premium feel */
 }
 
-.nav h1 span {
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.logo h1 span {
   color: var(--green);
 }
 
+/* NAV LINKS */
 .nav-links {
   display: flex;
   gap: 20px;
@@ -195,7 +222,7 @@ body.menu-open {
 @media(max-width:768px){
 
   .nav {
-    padding: 20px;
+    padding: 0 20px;
   }
 
   .burger {
@@ -232,6 +259,14 @@ body.menu-open {
   .grid {
     grid-template-columns: 1fr;
   }
+
+  .logo img {
+    height: 44px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+  }
 }
 </style>
 </head>
@@ -242,13 +277,17 @@ body.menu-open {
 
 <!-- NAV -->
 <div class="nav">
-  <h1>Kana<span>Web</span></h1>
+
+  <div class="logo">
+    <img src="assets/logo.png" alt="KanaWeb">
+    <h1>Kana<span>Web</span></h1>
+  </div>
 
   <div class="nav-links" id="navLinks">
     <a href="index.html">Home</a>
     <a href="catalog.html">Catalog</a>
     <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="about.html">About</a>
   </div>
 
   <div class="burger" id="burger">
@@ -256,6 +295,7 @@ body.menu-open {
     <div></div>
     <div></div>
   </div>
+
 </div>
 
 <!-- CONTENT -->

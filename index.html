@@ -8,7 +8,9 @@
 <style>
 :root {
   --bg: #f5f7f6;
+  --bg-soft: #eef2ef;
   --text: #2c2c2c;
+  --muted: #6b7280;
   --green: #7a8f6a;
   --green-dark: #5f7454;
 }
@@ -18,52 +20,67 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
 }
 
 html, body {
-  overflow-x: hidden; /* 🔥 fix geser */
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--bg);
+  background: linear-gradient(180deg, #f7f9f8 0%, #eef2ef 100%);
   color: var(--text);
-  padding-top: 80px; /* 🔥 space untuk navbar */
+  padding-top: 80px;
 }
 
-body.menu-open {
-  overflow: hidden;
-}
-
-/* NAV (FIXED STABLE) */
+/* NAV */
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 20px 60px;
+  padding: 0 60px;
   align-items: center;
-
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-
-  background: var(--bg);
+  height: 70px; /* 🔥 FIX tinggi biar stabil */
+  backdrop-filter: blur(10px);
+  background: rgba(245,247,246,0.8);
   z-index: 1000;
 }
 
-.nav h1 span {
+/* 🔥 LOGO BARU */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* lebih rapet */
+}
+
+.logo img {
+  height: 44px; /* lebih gede tapi aman */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.logo h1 span {
   color: var(--green);
 }
 
-/* MENU */
+/* NAV LINKS */
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 24px;
 }
 
 .nav a {
   text-decoration: none;
   color: var(--text);
+  font-size: 14px;
 }
 
 /* BURGER */
@@ -80,22 +97,39 @@ body.menu-open {
   margin: 4px;
 }
 
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
 /* HERO */
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 80px 60px;
-  gap: 40px;
+  padding: 100px 60px 80px;
+  gap: 60px;
 }
 
 .hero-left h2 {
-  font-size: clamp(36px, 5vw, 64px);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.2;
 }
 
 .hero-left p {
   margin: 20px 0;
-  max-width: 500px;
+  max-width: 520px;
+  color: var(--muted);
 }
 
 .btn {
@@ -104,6 +138,7 @@ body.menu-open {
   color: white;
   border-radius: 30px;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .hero-right img {
@@ -113,50 +148,73 @@ body.menu-open {
 /* SECTION */
 .section {
   padding: 80px 60px;
-  text-align: center;
+}
+
+.section.alt {
+  background: var(--bg-soft);
 }
 
 .section h3 {
-  font-size: 36px;
+  font-size: 32px;
   margin-bottom: 40px;
 }
 
-/* SERVICES */
-.services {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
 
+/* CARD */
 .card {
   background: white;
-  padding: 30px;
-  border-radius: 16px;
-  width: 280px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-/* PRICING */
-.pricing {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.price-card {
-  background: white;
-  padding: 40px;
   border-radius: 20px;
-  width: 280px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  transition: 0.3s;
 }
 
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 22px;
+}
+
+.card-content h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* PRICE */
 .price {
-  font-size: 32px;
-  margin: 20px 0;
+  font-weight: 600;
   color: var(--green);
+}
+
+/* BUTTON */
+.btn-read {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--green);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
 }
 
 /* CTA */
@@ -179,31 +237,15 @@ body.menu-open {
 
 .footer-text {
   margin-top: 60px;
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.85;
-}
-
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.3s;
-  z-index: 998;
-}
-
-.overlay.active {
-  opacity: 1;
-  pointer-events: all;
 }
 
 /* MOBILE */
 @media(max-width:768px){
 
   .nav {
-    padding: 20px;
+    padding: 0 20px;
   }
 
   .burger {
@@ -214,8 +256,8 @@ body.menu-open {
     position: fixed;
     top: 0;
     right: 0;
-    height: 100vh;
     width: 240px;
+    height: 100vh;
     background: white;
 
     flex-direction: column;
@@ -224,10 +266,7 @@ body.menu-open {
     gap: 25px;
 
     transform: translateX(100%);
-    transition: transform 0.3s ease;
-
-    z-index: 999;
-    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
   }
 
   .nav-links.active {
@@ -239,8 +278,20 @@ body.menu-open {
     text-align: center;
   }
 
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
   .section {
     padding: 60px 20px;
+  }
+
+  .logo img {
+    height: 40px;
+  }
+
+  .logo h1 {
+    font-size: 22px;
   }
 }
 </style>
@@ -252,13 +303,18 @@ body.menu-open {
 
 <!-- NAV -->
 <div class="nav">
-  <h1>Kana<span>Web</span></h1>
+
+  <!-- 🔥 LOGO FIX -->
+  <div class="logo">
+    <img src="assets/logo.png" alt="KanaWeb">
+    <h1>Kana<span>Web</span></h1>
+  </div>
 
   <div class="nav-links" id="navLinks">
     <a href="#home">Home</a>
     <a href="catalog.html">Catalog</a>
     <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
+    <a href="about.html">About</a>
   </div>
 
   <div class="burger" id="burger">
@@ -266,68 +322,124 @@ body.menu-open {
     <div></div>
     <div></div>
   </div>
+
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <h2>Jasa Pembuatan Website Profesional</h2>
-    <p>Kami membantu bisnis Anda tampil online dengan website modern, cepat, dan menarik.</p>
-    <a href="#contact" class="btn">Mulai Sekarang</a>
+    <h2>Solusi Website Profesional untuk Kebutuhan Bisnis Modern</h2>
+    <p>KanaWeb menyediakan layanan pembuatan website yang dirancang untuk meningkatkan kredibilitas, efisiensi, dan performa digital bisnis Anda.</p>
+    <a href="#contact" class="btn">Konsultasi Sekarang</a>
   </div>
 
   <div class="hero-right">
-    <img src="assets/logo.png" alt="logo">
+    <img src="assets/hero-right.png">
   </div>
 </section>
 
 <!-- SERVICES -->
-<section class="section" id="services">
-  <h3>Layanan Kami</h3>
-  <div class="services">
+<section class="section alt">
+  <h3>Layanan</h3>
+  <div class="grid">
     <div class="card">
-      <h4>Website Company</h4>
-      <p>Website profesional untuk brand Anda.</p>
+      <img src="https://picsum.photos/400/300?1">
+      <div class="card-content">
+        <h4>Website Company Profile</h4>
+        <p>Meningkatkan kepercayaan pelanggan melalui tampilan profesional dan informasi bisnis yang terstruktur.</p>
+      </div>
     </div>
+
     <div class="card">
-      <h4>Landing Page</h4>
-      <p>Halaman khusus untuk meningkatkan konversi.</p>
+      <img src="https://picsum.photos/400/300?2">
+      <div class="card-content">
+        <h4>Landing Page</h4>
+        <p>Dirancang untuk fokus pada konversi, cocok untuk promosi produk atau kampanye digital.</p>
+      </div>
     </div>
+
     <div class="card">
-      <h4>Custom Web App</h4>
-      <p>Solusi khusus sesuai kebutuhan bisnis Anda.</p>
+      <img src="https://picsum.photos/400/300?3">
+      <div class="card-content">
+        <h4>Web Application</h4>
+        <p>Pengembangan sistem berbasis web yang disesuaikan dengan kebutuhan operasional bisnis.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section class="section" id="pricing">
-  <h3>Paket Harga</h3>
-  <div class="pricing">
-    <div class="price-card">
-      <h4>Basic</h4>
-      <div class="price">Rp1jt</div>
-      <p>Landing Page</p>
+  <h3>Paket Layanan</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="https://picsum.photos/400/300?4">
+      <div class="card-content">
+        <h4>Basic</h4>
+        <p>Landing page sederhana untuk kebutuhan promosi.</p>
+        <div class="price">Rp450.000</div>
+      </div>
     </div>
-    <div class="price-card">
-      <h4>Pro</h4>
-      <div class="price">Rp3jt</div>
-      <p>Company Profile</p>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/300?5">
+      <div class="card-content">
+        <h4>Professional</h4>
+        <p>Website company profile dengan struktur lengkap.</p>
+        <div class="price">Rp500.000</div>
+      </div>
     </div>
-    <div class="price-card">
-      <h4>Custom</h4>
-      <div class="price">Custom</div>
-      <p>Sesuai kebutuhan</p>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/300?6">
+      <div class="card-content">
+        <h4>Custom</h4>
+        <p>Pengembangan website sesuai kebutuhan spesifik bisnis Anda.</p>
+        <div class="price">By Request</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<section class="section alt">
+  <h3>Artikel & Insight</h3>
+  <div class="grid">
+    <div class="card">
+      <img src="https://picsum.photos/400/300?7">
+      <div class="card-content">
+        <h4>Pentingnya Website untuk Bisnis</h4>
+        <p>Website berperan sebagai representasi utama bisnis di era digital.</p>
+        <a href="#" class="btn-read">Baca selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/300?8">
+      <div class="card-content">
+        <h4>Landing Page vs Website</h4>
+        <p>Memahami perbedaan dan fungsi untuk strategi digital yang tepat.</p>
+        <a href="#" class="btn-read">Baca selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/300?9">
+      <div class="card-content">
+        <h4>Optimasi Website untuk Konversi</h4>
+        <p>Strategi sederhana untuk meningkatkan performa penjualan online.</p>
+        <a href="#" class="btn-read">Baca selengkapnya</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-footer" id="contact">
-  <h3>Siap punya website keren?</h3>
+  <h3>Mulai Bangun Website Profesional Anda</h3>
   <a href="#">Hubungi Kami</a>
   <div class="footer-text">
-    © 2026 KanaWeb. Website Development Services
+    © 2026 KanaWeb. All rights reserved.
   </div>
 </section>
 
@@ -339,20 +451,12 @@ const overlay = document.getElementById('overlay');
 burger.addEventListener('click', () => {
   navLinks.classList.toggle('active');
   overlay.classList.toggle('active');
-  document.body.classList.toggle('menu-open');
 });
 
-overlay.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', closeMenu);
-});
-
-function closeMenu(){
+overlay.addEventListener('click', () => {
   navLinks.classList.remove('active');
   overlay.classList.remove('active');
-  document.body.classList.remove('menu-open');
-}
+});
 </script>
 
 </body>
